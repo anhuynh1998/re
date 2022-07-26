@@ -1,3 +1,8 @@
+
+.nav-moblie{
+    display: none;
+}
+
 .nav-contain{
     width: inherit;
     display: flex;
@@ -69,12 +74,12 @@
     margin: 30px 0 100px 0;
     .nav-link {
         cursor: pointer;
-         width: 290px;
+        
         text-align: center;
-    color: black;
-    padding: 20px 0 20px 0;
-    border-bottom: 0.5px solid #e9dcdc;
-    &:hover{
+        color: black;
+        padding: 20px 0 20px 0;
+        border-bottom: 0.5px solid #e9dcdc;
+        &:hover{
         color: #0adebb;
 
         
@@ -87,7 +92,7 @@
    margin-top: 100px;
     font-size: 20px;
     background-color: black;
-    width: 200px;
+    width: 100%;
     height: 41px;
     color: white;
     text-align: center;
@@ -112,6 +117,7 @@
 
 }
 .Modal {
+     z-index: 9999999;
      flex: 1;
   
     overflow-y: scroll;
@@ -129,7 +135,7 @@
             position: absolute;
             right: 1rem;
             top: 0.5rem;
-            z-index: 1000;
+            
             box-shadow: none;
            
             color:blue;
@@ -138,7 +144,7 @@
   }
   .cart-oder{
     display: flex;
-    padding: 30px;
+    
     
     .cart-oder-item-content{
        
@@ -180,8 +186,8 @@
 
     }
     .check-out{
-        padding: 30px;
-        border-left: 1px solid rgb(191, 190, 193);
+        
+       
         .check-out-containt{
             .total-price{
                 .total{

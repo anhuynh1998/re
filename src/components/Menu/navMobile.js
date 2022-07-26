@@ -1,34 +1,28 @@
-import React, { Component, useEffect } from 'react';
-import "./NavMenu.scss"
-import { getAllCategory } from "../../services/UserSevices"
+import React, { Component } from 'react';
+import "./navMoblie.scss"
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Modal from "react-modal";
 import { Zoom } from 'react-reveal';
+import { getAllCategory } from "../../services/UserSevices"
 import * as actions from "../../store/actions"
+import Fade from 'react-reveal/Fade';
 
 
 
 
-class NavMenu extends Component {
+class NavMobile extends Component {
     constructor ( props ) {
         super( props );
         this.state = {
             arrCategory: [],
-            cartItems: null,
-            isOpen: false,
-            showNav: ''
+            carItem: null,
+            isOpen: false
+
         }
-
     }
-
-
-
     async componentDidMount() {
         await this.getAllCategory()
-
-
-
     }
     getAllCategory = async () => {
         let respone = await getAllCategory();
@@ -50,7 +44,6 @@ class NavMenu extends Component {
     }
     openModal = ( cartItems ) => {
         this.setState( {
-
             isOpen: true
         } )
 
@@ -59,83 +52,61 @@ class NavMenu extends Component {
         this.setState( {
             isOpen: false
         } )
-
     }
-    componentWillMount() {
-        Modal.setAppElement( 'body' );
-    }
-
-
 
 
 
     render() {
-
         let categories = this.state.arrCategory
+        console.log( 'chekc ca', categories )
+
         let cartItems = this.props.cartItems
-
-
-
         return (
-            <div className="nav-contain">
-                <div className='logo'>
-                    <a href='/'>
-                        <img src="https://img.cdn.vncdn.io/nvn/ncdn/store/7136/logo_1654678632_z3476822435870_f4b9e00e50611b2a32876556b0d95082.jpg" />
-                    </a>
-
-                </div>
-                <div className='nav-menu-item'>
-                    <span><i className="fas fa-user"> </i></span>
-                    <span><i className="fas fa-search"></i></span>
-                    <span><i className="fas fa-heart"></i></span>
-
-                    <div className='cart' onClick={() => this.openModal( cartItems )}><span><i className="fas fa-shopping-bag"> </i> {cartItems.length === 0 ? ( <span className='total-item'>0</span> )
-                        : ( <span className='total-item'> {cartItems.length}</span> )}  </span></div>
-
-
-                </div>
-                <div className='menu'>
-                    <nav className="nav flex-column">
-                        {
-
-                            categories && categories.length > 0 && categories.map( ( item, index ) => {
-                                return (
-                                    <a key={index} className="nav-link" onClick={() => this.handelViewProductIncategory( item )}>{item}</a>
-
-                                )
-                            } )
-                        }
-
-
-                        {/* {categories && categories.map(( item, index ) => {
-                            return (
-                                <a key={index} className="nav-link" href="/#">{ item}</a>
-                           )
-                        })} */}
+            <>
+                <div className='nav-bar-mobile'>
+                    <nav className="navbar navbar-expand-lg navbar-light bg-light nav-bar-mobile-custtom">
+                        <div className="container-fluid ">
+                            <a className="navbar-brand" href="/">TOTOSHOP</a>
+                            <div className='content-right-nav'>
+                                <div className='cart' onClick={() => this.openModal( cartItems )}><span><i className="fas fa-shopping-bag"> </i> {cartItems.length === 0 ? ( <span className='total-item'>0</span> )
+                                    : ( <span className='total-item'> {cartItems.length}</span> )}  </span></div>
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
 
 
 
 
-                    </nav>
+                            <div className="collapse navbar-collapse" id="navbarNav">
+                                <Fade left>
+                                    <ul className="navbar-nav">
+                                        <li className="nav-item">
+                                            {
 
-                </div>
-                <div className='phone'>
-                    <i className="fas fa-phone-volume"></i>
-                    <span>0332701798</span>
+                                                categories && categories.length > 0 && categories.map( ( item, index ) => {
+                                                    return (
+                                                        <a key={index} className="nav-link" onClick={() => this.handelViewProductIncategory( item )}>{item}</a>
 
-                </div>
-                <div className=' social'>
-                    <i className="fab fa-facebook-square"></i>
-                    <i className="fab fa-instagram"></i>
-                    <i className="fab fa-youtube"></i>
-                    <i className="fab fa-twitter"></i>
+                                                    )
+                                                } )
+                                            }
 
-                </div>
+                                        </li>
 
+
+                                    </ul>
+                                </Fade>
+                            </div>
+                        </div>
+                    </nav >
+
+
+                </div >
                 <div className=' modal '>
-                    <Modal isOpen={this.state.isOpen}
-
-                        className="Modal">
+                    <Modal
+                        isOpen={this.state.isOpen}
+                        onRequestClose={this.closeModal}>
                         <Zoom bottom>
                             <button className="close-modal" onClick={this.closeModal}>
                                 x
@@ -143,7 +114,7 @@ class NavMenu extends Component {
                             <div className='container'>
                                 <div className='row'>
                                     <div className='cart-oder'>
-                                        <div className='cart-oder-item-content col-6'>
+                                        <div className='cart-oder-item-content '>
                                             <h6 className='notic-oder'>You have {cartItems.length} products in your cart</h6>
                                             {cartItems && cartItems.length > 0 && cartItems.map( ( item, index ) => {
                                                 return (
@@ -169,7 +140,7 @@ class NavMenu extends Component {
                                             } )}
 
                                         </div>
-                                        <div className='check-out col-6'>
+                                        <div className='check-out '>
                                             <div className=' check-out-containt '>
                                                 <div className='total-price'>
                                                     {cartItems && cartItems.length !== 0 && (
@@ -212,15 +183,12 @@ class NavMenu extends Component {
                             </div>
 
                         </Zoom>
-
                     </Modal>
-
                 </div>
 
+            </>
 
 
-
-            </div>
         );
     }
 }
@@ -240,5 +208,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default withRouter( connect( mapStateToProps, mapDispatchToProps )( NavMenu ) );
-
+export default withRouter( connect( mapStateToProps, mapDispatchToProps )( NavMobile ) );
